@@ -29,5 +29,5 @@ jobs:
           dotnet-version: '5.0.x' # SDK Version to use; x will use the latest version of the 3.1 channel
 
       # Executes the build
-      - name: Bash for GitHub Actions
+      - name: Execute the build
         run: ./build.sh
