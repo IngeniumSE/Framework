@@ -33,4 +33,5 @@ jobs:
 
       # Executes the build
       - name: Execute the build
+        working-directory: $GITHUB_WORKSPACE
         run: ./build.sh
