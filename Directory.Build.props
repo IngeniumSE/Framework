@@ -1,3 +1,7 @@
 <Project>
 	<Import Project="./build/build.props" />
+
+	<PropertyGroup Label="Versioning">
+		<MinVerDefaultPreReleasePhase>preview</MinVerDefaultPreReleasePhase>
+	</PropertyGroup>
 </Project>
