@@ -1,3 +1,4 @@
 <Project>
   <Import Project="./build/build.targets" />
+  <Import Project="./packages.targets" />
 </Project>

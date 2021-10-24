@@ -1,4 +1,5 @@
 <Project>
+	<Import Project="./packages.props" />
 	<Import Project="./build/build.props" />
 
 	<PropertyGroup Label="Versioning">

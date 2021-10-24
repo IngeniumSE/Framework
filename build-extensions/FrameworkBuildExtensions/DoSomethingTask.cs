@@ -10,6 +10,8 @@
 	[IsDependeeOf(typeof(ResolveVerson))]
 	public class DoSomethingTask : BuildTask
 	{
+		public DoSomethingTask(BuildServices services) : base(services) { }
+
 		protected override void RunCore(BuildContext context)
 		{
 			context.Log.Write(
