@@ -27,7 +27,7 @@ public interface IPartManager
 }
 
 /// <summary>
-/// Provides servivces for managing parts.
+/// Provides services for managing parts.
 /// </summary>
 public class PartManager : IPartManager
 {

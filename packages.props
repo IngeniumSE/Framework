@@ -2,13 +2,5 @@
 	<PropertyGroup Label="Microsoft">
 		<!-- Overall MSE.* -->
 		<MSExtVersion Condition="'$(MSExtVersion)'==''">6.0.0-rc.2.21480.5</MSExtVersion>
-
-		<!-- Specific MSE.* packages -->
-		<MSExtConfigVersion Condition="'$(MSExtConfigVersion)'==''">$(MSExtVersion)</MSExtConfigVersion>
-		<MSExtDIVersion Condition="'$(MSExtDIVersion)'==''">$(MSExtVersion)</MSExtDIVersion>
-		<MSExtDepModelVersion Condition="'$(MSExtDepModelVersion)'==''">$(MSExtVersion)</MSExtDepModelVersion>
-		<MSExtHostVersion Condition="'$(MSExtHostVersion)'==''">$(MSExtVersion)</MSExtHostVersion>
-		<MSExtOptionsVersion Condition="'$(MSExtOptionsVersion)'==''">$(MSExtVersion)</MSExtOptionsVersion>
-		<MSExtHttpVersion Condition="'$(MSExtHttpVersion)'==''">$(MSExtVersion)</MSExtHttpVersion>
 	</PropertyGroup>
 </Project>

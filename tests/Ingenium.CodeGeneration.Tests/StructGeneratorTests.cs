@@ -135,9 +135,9 @@ namespace Ingenium.CodeGeneration.Tests
 		}
 	}
 
-	[GenerateStruct]
+	[GenerateId]
 	partial struct Int32Struct { }
 
-	[GenerateStruct(typeof(string))]
+	[GenerateId(typeof(string))]
 	partial struct StringStruct { }
 }

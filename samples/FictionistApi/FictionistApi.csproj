@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+		<PackageReference Include="Auth0.AspNetCore.Authentication" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\libs\Ingenium.Common\Ingenium.Common.csproj" />
+    <ProjectReference Include="..\..\libs\Ingenium.Configuration\Ingenium.Configuration.csproj" />
+    <ProjectReference Include="..\..\libs\Ingenium.DependencyInjection\Ingenium.DependencyInjection.csproj" />
+    <ProjectReference Include="..\..\libs\Ingenium.Hosting\Ingenium.Hosting.csproj" />
+    <ProjectReference Include="..\..\libs\Ingenium.Modules\Ingenium.Modules.csproj" />
+    <ProjectReference Include="..\..\libs\Ingenium.Parts\Ingenium.Parts.csproj" />
+  </ItemGroup>
+
+</Project>

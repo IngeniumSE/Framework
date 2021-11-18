@@ -17,7 +17,7 @@ namespace Ingenium.CodeGeneration
 	/// Provides code generation for immutable structs.
 	/// </summary>
 	[Generator]
-	public class StructGenerator : ISourceGenerator
+	public class IdGenerator : ISourceGenerator
 	{
 		const string AttributeDefinition = @"
 namespace Ingenium.CodeGeneration
@@ -28,13 +28,13 @@ namespace Ingenium.CodeGeneration
 	/// Marks a struct for code generation.
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Struct, Inherited = false, AllowMultiple = false)]
-	sealed class GenerateStructAttribute : Attribute
+	sealed class GenerateIdAttribute : Attribute
 	{
 		/// <summary>
-		/// Initialises a new instance of <see cref=""Alium.CodeGeneration.GenerateStructAttribute"" />
+		/// Initialises a new instance of <see cref=""Alium.CodeGeneration.GenerateIdAttribute"" />
 		/// <summary>
 		/// <param name=""backingType"">The backing type of the struct.</param>
-		public GenerateStructAttribute(Type? backingType = default)
+		public GenerateIdAttribute(Type? backingType = default)
 		{
 			BackingType = backingType is object ? backingType : typeof(int);
 		}
@@ -50,7 +50,7 @@ namespace Ingenium.CodeGeneration
 			id: "INGCGEN001",
 			title: "Dynamically generated struct attribute could not be resolved",
 			messageFormat: "The code generation item '{0}' could not be resolved in the current compilation",
-			category: "AliumCodeGeneration",
+			category: "IngeniumCodeGeneration",
 			DiagnosticSeverity.Error,
 			isEnabledByDefault: true);
 
@@ -64,7 +64,7 @@ namespace Ingenium.CodeGeneration
 
 			var attributeSourceText = SourceText.From(AttributeDefinition, Encoding.UTF8);
 
-			context.AddSource("GenerateStructAttribute.cs", attributeSourceText);
+			context.AddSource("GenerateIdAttribute.cs", attributeSourceText);
 
 			var options = ((CSharpCompilation)context.Compilation)
 				.SyntaxTrees[0].Options as CSharpParseOptions;
@@ -72,13 +72,13 @@ namespace Ingenium.CodeGeneration
 			var compilation = context.Compilation.AddSyntaxTrees(
 				CSharpSyntaxTree.ParseText(attributeSourceText, options));
 
-			var attributeSymbol = compilation.GetTypeByMetadataName("Ingenium.CodeGeneration.GenerateStructAttribute");
+			var attributeSymbol = compilation.GetTypeByMetadataName("Ingenium.CodeGeneration.GenerateIdAttribute");
 			if (attributeSymbol is null)
 			{
 				context.ReportDiagnostic(
 					Diagnostic.Create(MissingAttributeErrror,
 						Location.None,
-						"Ingenium.CodeGeneration.GenerateStructAttribute")
+						"Ingenium.CodeGeneration.GenerateIdAttribute")
 				);
 
 				return;
@@ -98,7 +98,7 @@ namespace Ingenium.CodeGeneration
 			foreach (var symbol in symbols)
 			{
 				string source = ProcessClass(symbol, attributeSymbol, context);
-				context.AddSource($"{symbol.Name}_StructImpl.generated.cs", SourceText.From(source, Encoding.UTF8));
+				context.AddSource($"{symbol.Name}_IdImpl.generated.cs", SourceText.From(source, Encoding.UTF8));
 			}
 		}
 
@@ -106,8 +106,6 @@ namespace Ingenium.CodeGeneration
 		public void Initialize(GeneratorInitializationContext context)
 		{
 			context.RegisterForSyntaxNotifications(() => new SyntaxReceiver());
-
-			//System.Diagnostics.Debugger.Launch();
 		}
 
 		string ArgumentValidation(bool isValueType, bool isStringType)

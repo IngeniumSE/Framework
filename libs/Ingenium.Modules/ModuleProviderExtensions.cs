@@ -43,7 +43,7 @@ public static class ModuleProviderExtensions
 	/// <returns>The set of services.</returns>
 	public static IEnumerable<TService> EnumerateModules<TService>(this IModuleProvider provider)
 	{
-		Ensure.Equals(provider, nameof(provider));
+		Ensure.IsNotNull(provider, nameof(provider));
 
 		foreach (var module in provider.Modules)
 		{

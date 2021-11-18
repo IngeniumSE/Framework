@@ -5,5 +5,5 @@ namespace Ingenium.Modules;
 /// <summary>
 /// Represents a module ID.
 /// </summary>
-[GenerateStruct(typeof(string))]
+[GenerateId(typeof(string))]
 public partial struct ModuleId { }

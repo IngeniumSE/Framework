@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -7,8 +7,17 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Configuration" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" />
 		<PackageReference Include="Microsoft.Extensions.DependencyModel" />
 		<PackageReference Include="Microsoft.Extensions.Hosting" />
+		<PackageReference Include="Microsoft.Extensions.Logging" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Ingenium.Configuration\Ingenium.Configuration.csproj" />
+	  <ProjectReference Include="..\Ingenium.DependencyInjection\Ingenium.DependencyInjection.csproj" />
+	  <ProjectReference Include="..\Ingenium.Modules\Ingenium.Modules.csproj" />
+	  <ProjectReference Include="..\Ingenium.Parts\Ingenium.Parts.csproj" />
 	</ItemGroup>
 
 </Project>
