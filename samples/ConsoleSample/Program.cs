@@ -7,8 +7,9 @@ using Microsoft.Extensions.Logging;
 
 await new HostBuilder()
 	.UseDiscoveredModules()
-	.ConfigureLogging(lb =>
+	.ConfigureLogging((ctx, lb) =>
 	{
+		lb.AddConfiguration(ctx.Configuration.GetSection("Logging"));
 		lb.AddConsole();
 	})
 	.RunAppAsync<SampleApp>();

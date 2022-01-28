@@ -34,7 +34,7 @@ namespace Ingenium.CodeGeneration
 		/// Initialises a new instance of <see cref=""Alium.CodeGeneration.GenerateIdAttribute"" />
 		/// <summary>
 		/// <param name=""backingType"">The backing type of the struct.</param>
-		public GenerateIdAttribute(Type? backingType = default)
+		public GenerateIdAttribute(Type? backingType = default, bool caseInsensitive = false)
 		{
 			BackingType = backingType is object ? backingType : typeof(int);
 		}
@@ -43,6 +43,11 @@ namespace Ingenium.CodeGeneration
 		/// Gets the backing type for the struct.
 		/// </summary>
 		public Type BackingType { get; }
+
+		/// <summary>
+		/// Gets whether to use case-insensitivity for string IDs.
+		/// </summary>
+		public bool CaseInsenstive { get; }
 	}
 }";
 
@@ -115,9 +120,9 @@ namespace Ingenium.CodeGeneration
 						? $@"if (value is not {{ Length: >0 }}) {{ throw new ArgumentException(""The provided value must be a non-empty string."", nameof(value)); }}"
 						: $@"if (value is null) {{ throw new ArgumentNullException(nameof(value)); }}";
 
-		string EqualityCheck(bool isStringType, string valueSymbol)
+		string EqualityCheck(bool isStringType, string valueSymbol, bool caseInsensitive)
 			=> isStringType
-					? $"Value.Equals({valueSymbol}, StringComparison.Ordinal)"
+					? $"Value.Equals({valueSymbol}, StringComparison.Ordinal{(caseInsensitive ? "IgnoreCase" : "")})"
 					: $"Value.Equals({valueSymbol})";
 
 		bool IsStringType(INamedTypeSymbol symbol, GeneratorExecutionContext context)
@@ -139,14 +144,17 @@ namespace Ingenium.CodeGeneration
 			string name = typeSymbol.Name;
 
 			var attribute = typeSymbol.GetAttributes().First(ad => ad.AttributeClass!.Equals(attributeSymbol, SymbolEqualityComparer.Default));
-			var arg = attribute.ConstructorArguments.First().Value as INamedTypeSymbol;
-
-			if (arg is null)
+			var typeArg = attribute.ConstructorArguments[0].Value as INamedTypeSymbol;
+#pragma warning disable CS8605 // Unboxing a possibly null value.
+			bool caseInsensitive = bool.Parse(attribute.ConstructorArguments[1].Value!.ToString());
+#pragma warning restore CS8605 // Unboxing a possibly null value.
+			
+			if (typeArg is null)
 			{
-				arg = context.Compilation.GetTypeByMetadataName("System.Int32")!;
+				typeArg = context.Compilation.GetTypeByMetadataName("System.Int32")!;
 			}
-			bool argIsValueType = IsValueType(arg, context);
-			bool argIsStringType = IsStringType(arg, context);
+			bool argIsValueType = IsValueType(typeArg, context);
+			bool argIsStringType = IsStringType(typeArg, context);
 
 			string source = $@"namespace {ns}
 {{
@@ -156,12 +164,14 @@ namespace Ingenium.CodeGeneration
 	[DebuggerDisplay(""{{DebuggerToString(){(argIsStringType ? "" : ",nq")}}}"")]
 	partial struct {name} : IComparable<{name}>, IEquatable<{name}>
 	{{
+		public static readonly IEqualityComparer<{name}> Comparer = new _Comparer();
+
 		/// <summary>
 		/// Represents an empty instance.
 		/// </summary>
 		public static readonly {name} Empty = new {name}();
 
-		public {name}({arg.Name} value)
+		public {name}({typeArg.Name} value)
 		{{
 			{ArgumentValidation(argIsValueType, argIsStringType)}
 
@@ -177,7 +187,7 @@ namespace Ingenium.CodeGeneration
 		/// <summary>
 		/// Gets the value.
 		/// </summary>
-		public {arg.Name} Value {{ get; }}
+		public {typeArg.Name} Value {{ get; }}
 
 		/// <inheritdoc />
 		public int CompareTo({name} other)
@@ -195,7 +205,7 @@ namespace Ingenium.CodeGeneration
 			=> other switch
 				{{
 					{name} value => Equals(value),
-					{arg.Name} value => Equals(value),
+					{typeArg.Name} value => Equals(value),
 					_ => false
 				}};
 
@@ -204,18 +214,18 @@ namespace Ingenium.CodeGeneration
 		{{
 			if (HasValue && HasValue == other.HasValue)
 			{{
-				return {EqualityCheck(argIsStringType, "other.Value")};
+				return {EqualityCheck(argIsStringType, "other.Value", caseInsensitive)};
 			}}
 
 			return false;
 		}}
 
 		/// <inheritdoc />
-		public bool Equals({arg.Name} other)
+		public bool Equals({typeArg.Name} other)
 		{{
 			if (HasValue)
 			{{
-				return {EqualityCheck(argIsStringType, "other")};
+				return {EqualityCheck(argIsStringType, "other", caseInsensitive)};
 			}}
 
 			return false;
@@ -237,6 +247,19 @@ namespace Ingenium.CodeGeneration
 			=> left.Equals(right);
 		public static bool operator !=({name} left, {name} right)
 			=> !left.Equals(right);
+
+		class _Comparer : IEqualityComparer<{name}>
+		{{
+			public bool Equals({name} left, {name} right)
+			{{
+				return left.Equals(right);
+			}}
+
+			public int GetHashCode({name} value)
+			{{
+				return value.GetHashCode();
+			}}
+		}}
 	}}
 }}";
 

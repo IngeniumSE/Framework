@@ -123,4 +123,7 @@
   <data name="MissingDependencyExceptionMessage" xml:space="preserve">
     <value>Missing dependency: '{0}?. The key '{1}' cannot be found in the graph'.</value>
   </data>
+  <data name="ObjectDisposedExceptionMessage" xml:space="preserve">
+    <value>The operation could not be performed because the instance is already disposed. This usually happens if you attempt to use a disposed instance after a call to its Dispose() method, or outstide of the using statement in which it is scoped.</value>
+  </data>
 </root>

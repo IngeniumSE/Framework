@@ -15,10 +15,20 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\libs\Ingenium.Configuration\Ingenium.Configuration.csproj" />
+	  <ProjectReference Include="..\..\libs\Ingenium.Data.SqlServer\Ingenium.Data.SqlServer.csproj" />
+	  <ProjectReference Include="..\..\libs\Ingenium.Data\Ingenium.Data.csproj" />
 	  <ProjectReference Include="..\..\libs\Ingenium.DependencyInjection\Ingenium.DependencyInjection.csproj" />
 	  <ProjectReference Include="..\..\libs\Ingenium.Hosting\Ingenium.Hosting.csproj" />
 	  <ProjectReference Include="..\..\libs\Ingenium.Modules\Ingenium.Modules.csproj" />
 	  <ProjectReference Include="..\..\libs\Ingenium.Parts\Ingenium.Parts.csproj" />
+	  <ProjectReference Include="..\..\libs\Ingenium.Storage.FileSystem\Ingenium.Storage.FileSystem.csproj" />
+	  <ProjectReference Include="..\..\libs\Ingenium.Storage\Ingenium.Storage.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="appsettings.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 
 </Project>

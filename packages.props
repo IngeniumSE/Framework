@@ -1,6 +1,6 @@
 <Project>
 	<PropertyGroup Label="Microsoft">
 		<!-- Overall MSE.* -->
-		<MSExtVersion Condition="'$(MSExtVersion)'==''">6.0.0-rc.2.21480.5</MSExtVersion>
+		<!--<MSExtVersion Condition="'$(MSExtVersion)'==''">6.0.0-rc.2.21480.5</MSExtVersion>-->
 	</PropertyGroup>
 </Project>

@@ -5,4 +5,9 @@
 	<PropertyGroup Label="Versioning">
 		<MinVerDefaultPreReleasePhase>preview</MinVerDefaultPreReleasePhase>
 	</PropertyGroup>
+
+	<PropertyGroup Label="Conventions">
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 </Project>

@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+		<ProjectReference Include="..\Ingenium.CodeGeneration\Ingenium.CodeGeneration.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\Ingenium.Common\Ingenium.Common.csproj" />
+    <ProjectReference Include="..\Ingenium.DependencyInjection\Ingenium.DependencyInjection.csproj" />
+    <ProjectReference Include="..\Ingenium.Modules\Ingenium.Modules.csproj" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Options" />
+	</ItemGroup>
+
+</Project>

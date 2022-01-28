@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ingenium.Common\Ingenium.Common.csproj" />
+    <ProjectReference Include="..\Ingenium.DependencyInjection\Ingenium.DependencyInjection.csproj" />
+    <ProjectReference Include="..\Ingenium.Modules\Ingenium.Modules.csproj" />
+    <ProjectReference Include="..\Ingenium.Storage\Ingenium.Storage.csproj" />
+  </ItemGroup>
+
+</Project>

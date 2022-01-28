@@ -77,5 +77,14 @@ namespace Ingenium {
                 return ResourceManager.GetString("MissingDependencyExceptionMessage", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The operation could not be performed because the instance is already disposed. This usually happens if you attempt to use a disposed instance after a call to its Dispose() method, or outstide of the using statement in which it is scoped..
+        /// </summary>
+        internal static string ObjectDisposedExceptionMessage {
+            get {
+                return ResourceManager.GetString("ObjectDisposedExceptionMessage", resourceCulture);
+            }
+        }
     }
 }
