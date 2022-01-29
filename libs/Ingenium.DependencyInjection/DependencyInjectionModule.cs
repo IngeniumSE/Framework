@@ -18,6 +18,6 @@ public class DataModule : Module, IServicesBuilder
 	{
 		Ensure.IsNotNull(services, nameof(services));
 
-		services.AddScoped(typeof(IProviderServiceFactory<>), typeof(ProviderServiceFactory<>));
+		services.AddTransient(typeof(IProviderServiceFactory<>), typeof(ProviderServiceFactory<>));
 	}
 }

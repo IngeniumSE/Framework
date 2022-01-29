@@ -1,0 +1,14 @@
+﻿@page
+@model IndexModel
+@inject Ingenium.Data.ISqlFactory SqlFactory
+@{
+	ViewData["Title"] = "Home page";
+
+	using var sql = SqlFactory.CreateSqlContext();
+	int result = await sql.ReadScalarAsync<int>("select 1");
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome @result</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>

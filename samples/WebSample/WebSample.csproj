@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\libs\Ingenium.Common\Ingenium.Common.csproj" />
+    <ProjectReference Include="..\..\libs\Ingenium.Configuration\Ingenium.Configuration.csproj" />
+    <ProjectReference Include="..\..\libs\Ingenium.Data.SqlServer\Ingenium.Data.SqlServer.csproj" />
+    <ProjectReference Include="..\..\libs\Ingenium.Data\Ingenium.Data.csproj" />
+    <ProjectReference Include="..\..\libs\Ingenium.DependencyInjection\Ingenium.DependencyInjection.csproj" />
+    <ProjectReference Include="..\..\libs\Ingenium.Gql\Ingenium.Gql.csproj" />
+    <ProjectReference Include="..\..\libs\Ingenium.Hosting.AspNetCore\Ingenium.Hosting.AspNetCore.csproj" />
+    <ProjectReference Include="..\..\libs\Ingenium.Hosting\Ingenium.Hosting.csproj" />
+    <ProjectReference Include="..\..\libs\Ingenium.Modules\Ingenium.Modules.csproj" />
+    <ProjectReference Include="..\..\libs\Ingenium.Parts\Ingenium.Parts.csproj" />
+    <ProjectReference Include="..\..\libs\Ingenium.Storage.FileSystem\Ingenium.Storage.FileSystem.csproj" />
+    <ProjectReference Include="..\..\libs\Ingenium.Storage\Ingenium.Storage.csproj" />
+    <ProjectReference Include="..\..\libs\Ingenium.Web\Ingenium.Web.csproj" />
+  </ItemGroup>
+
+</Project>

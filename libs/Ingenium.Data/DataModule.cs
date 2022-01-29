@@ -22,8 +22,8 @@ public class DataModule : Module, IServicesBuilder
 
 		services.AddSingleton<IConnectionStringProvider, ConnectionStringProvider>();
 		services.AddSingleton<ITransactionManager, TransactionManager>();
-		services.AddSingleton<ISqlFactory, DapperSqlFactory>();
-		services.AddTransient(s => s.GetRequiredService<ISqlFactory>().CreateSqlContext());
+		services.AddScoped<ISqlFactory, DapperSqlFactory>();
+		services.AddScoped(s => s.GetRequiredService<ISqlFactory>().CreateSqlContext());
 
 		services.Configure<DataOptions, DataOptionsValidator>(
 			context.Configuration.GetSection(DataOptions.ConfigurationSectionKey));
