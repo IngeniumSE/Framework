@@ -6,4 +6,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Ingenium.Data\Ingenium.Data.csproj" />
+	  <ProjectReference Include="..\..\Ingenium.DependencyInjection\Ingenium.DependencyInjection.csproj" />
+	</ItemGroup>
+
 </Project>
