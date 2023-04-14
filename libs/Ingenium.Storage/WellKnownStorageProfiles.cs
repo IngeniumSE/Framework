@@ -5,6 +5,6 @@
 /// </summary>
 public static class WellKnownStorageProfiles
 {
-	public static StorageProfileId Temp = new("Temp");
-	public static StorageProfileId Local = new("Local");
+	public static readonly StorageProfileId Temp = new("Temp");
+	public static readonly StorageProfileId Local = new("Local");
 }

@@ -1,12 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <RootNamespace>Ingenium</RootNamespace>
   </PropertyGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\Ingenium.CodeGeneration\Ingenium.CodeGeneration.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+		<ProjectReference Include="..\Ingenium.CodeGeneration.Attributes\Ingenium.CodeGeneration.Attributes.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="true" />
 	</ItemGroup>
 
 	<ItemGroup>

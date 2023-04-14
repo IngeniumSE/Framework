@@ -1,0 +1,12 @@
+{
+	"profiles": {
+		"Debug Code Generators: Ingenium.Platform.Security": {
+			"commandName": "DebugRoslynComponent",
+			"targetProject": "..\\Ingenium.Platform.Security\\Ingenium.Platform.Security.csproj"
+		},
+		"Debug Code Generators: Ingenium.Platform.Data": {
+			"commandName": "DebugRoslynComponent",
+			"targetProject": "..\\Ingenium.Platform.Data\\Ingenium.Platform.Data.csproj"
+		}
+	}
+}

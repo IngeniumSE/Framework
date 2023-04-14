@@ -15,7 +15,7 @@ public class FileSystemStorageProvider : StorageProvider
 
 		var options = OptionsProvider
 			.GetStorageProfileOptions<FileSystemStorageProfileOptions, FileSystemStorageProfileOptionsValidator>(
-				request.ProfileId);
+				request.ProfileId)!;
 
 		string rootPath = options.RootPath;
 		if (!Path.IsPathRooted(rootPath))

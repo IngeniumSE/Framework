@@ -1,9 +1,7 @@
-﻿using Ingenium.CodeGeneration;
-
-namespace Ingenium.Modules;
+﻿namespace Ingenium.Modules;
 
 /// <summary>
 /// Represents a module ID.
 /// </summary>
-[GenerateId(typeof(string))]
+[GenerateId(typeof(string), caseInsensitive: true)]
 public partial struct ModuleId { }

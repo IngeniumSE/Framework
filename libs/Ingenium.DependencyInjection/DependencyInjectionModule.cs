@@ -11,7 +11,7 @@ namespace Ingenium.DependencyInjection;
 	id: "DependencyInjection",
 	name: "DependencyInjection",
 	description: "Provides DI services for applications.")]
-public class DataModule : Module, IServicesBuilder
+public class DependencyInjectionModule : Module, IServicesBuilder
 {
 	/// <inheritdoc />
 	public void AddServices(ServicesBuilderContext context, IServiceCollection services)

@@ -5,8 +5,8 @@
 
 			set identity_insert sec.[User] on;
 
-			insert sec.[User] ([UserID], [Email], [Name], [IsHidden], [IsLocked], [CreatedUserID])
-				values (0, '', 'System', 1, 1, 0);
+			insert sec.[User] ([UserID], [Email], [Name], [FormalName], [IsHidden], [IsLocked], [CreatedUserID])
+				values (0, '', 'System', 'System', 1, 1, 0);
 
 			set identity_insert sec.[User] off;
 end

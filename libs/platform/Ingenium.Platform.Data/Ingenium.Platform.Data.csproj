@@ -1,9 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <TargetFramework>net7.0</TargetFramework>
   </PropertyGroup>
 
 	<ItemGroup>
@@ -12,6 +10,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\Ingenium.CodeGeneration.Attributes\Ingenium.CodeGeneration.Attributes.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="true" />
+		<ProjectReference Include="..\..\Ingenium.CodeGeneration\Ingenium.CodeGeneration.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 	  <ProjectReference Include="..\..\Ingenium.Data\Ingenium.Data.csproj" />
 	  <ProjectReference Include="..\..\Ingenium.DependencyInjection\Ingenium.DependencyInjection.csproj" />
 	</ItemGroup>

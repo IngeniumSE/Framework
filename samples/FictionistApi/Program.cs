@@ -36,12 +36,12 @@ class Program
 		});
 		services.AddControllersWithViews();
 
-		services.AddAuth0WebAppAuthentication(o =>
-		{
-			o.Domain = _config["OAuth:Domain"];
-			o.ClientId = _config["OAuth:ClientId"];
-			o.ClientSecret = _config["OAuth:ClientSecret"];
-		});
+		//services.AddAuth0WebAppAuthentication(o =>
+		//{
+		//	o.Domain = _config["OAuth:Domain"];
+		//	o.ClientId = _config["OAuth:ClientId"];
+		//	o.ClientSecret = _config["OAuth:ClientSecret"];
+		//});
 	}
 
 	public void Configure(IApplicationBuilder app)
@@ -49,7 +49,7 @@ class Program
 		app.UseAuthentication();
 
 		app.UseRouting();
-		app.UseAuthorization();
+		//app.UseAuthorization();
 		app.UseEndpoints(b =>
 		{
 			b.MapControllerRoute(

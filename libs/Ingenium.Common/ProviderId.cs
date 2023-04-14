@@ -1,6 +1,4 @@
-﻿using Ingenium.CodeGeneration;
-
-namespace Ingenium;
+﻿namespace Ingenium;
 
 [GenerateId(typeof(string), caseInsensitive: true)]
 public partial struct ProviderId { }

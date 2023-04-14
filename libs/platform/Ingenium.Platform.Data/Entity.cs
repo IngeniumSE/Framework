@@ -1,4 +1,7 @@
-﻿namespace Ingenium.Platform.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace Ingenium.Platform.Data;
 
 /// <summary>
 /// Represents an entity.
@@ -13,7 +16,7 @@ public abstract class Entity
 	/// <summary>
 	/// Gets or sets the ID of the user that created the entity.
 	/// </summary>
-	public int CreatedUserId { get; set; }
+	public UserId CreatedUserId { get; set; }
 
 	/// <summary>
 	/// Gets or sets whether the entity is deleted.
@@ -41,7 +44,50 @@ public abstract class Entity
 	public DateTimeOffset? Updated { get; set; }
 
 	/// <summary>
-	/// Gets or sets the ID o fthe user that last updated the entity.
+	/// Gets or sets the ID of the user that last updated the entity.
 	/// </summary>
-	public int? UpdatedUserId { get; set; }
+	public UserId? UpdatedUserId { get; set; }
+}
+
+/// <summary>
+/// Provides a base implementation of an entity type configuration.
+/// </summary>
+/// <typeparam name="TEntity">The entity type.</typeparam>
+public abstract class EntityTypeConfiguration<TEntity> : IEntityTypeConfiguration<TEntity>
+	where TEntity : Entity
+{
+	/// <inheritdoc />
+	public void Configure(EntityTypeBuilder<TEntity> builder)
+	{
+		ConfigureEntity(builder);
+		ConfigureDomain(builder);
+	}
+
+	/// <summary>
+	/// Configures the common entity properties for this entity.
+	/// </summary>
+	/// <param name="builder">The entity builder.</param>
+	protected virtual void ConfigureEntity(EntityTypeBuilder<TEntity> builder)
+	{
+		builder.Property(e => e.Created)
+			.IsRequired()
+			.ValueGeneratedOnAdd();
+
+		builder.Property(e => e.CreatedUserId)
+			.IsRequired()
+			.HasConversion<UserIdEFValueConverter>();
+
+		builder.Property(e => e.IsDeleted).IsRequired();
+		builder.Property(e => e.IsEnabled).IsRequired();
+		builder.Property(e => e.IsHidden).IsRequired();
+		builder.Property(e => e.IsLocked).IsRequired();
+		builder.Property(e => e.UpdatedUserId).HasConversion<UserIdEFValueConverter>();
+		builder.Property(e => e.Updated);
+	}
+
+	/// <summary>
+	/// Configures the domain-specific properties for this entity.
+	/// </summary>
+	/// <param name="builder">The entity builder.</param>
+	protected abstract void ConfigureDomain(EntityTypeBuilder<TEntity> builder);
 }

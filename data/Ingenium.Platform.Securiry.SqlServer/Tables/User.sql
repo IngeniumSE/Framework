@@ -1,7 +1,9 @@
 ﻿create table sec.[User] (
 	[UserID] int identity(1,1) not null primary key,
-	[Email] nvarchar(500) not null,
-	[Name] nvarchar(500) not null,
+	[Email] nvarchar(256) not null,
+	[Name] nvarchar(512) not null,
+	[FormalName] nvarchar(512) not null,
+	[Handle] nvarchar(510) null,
 
 	-- Standard flags
 	[IsEnabled] bit not null default 1,
@@ -14,6 +16,6 @@
 	[Updated] datetimeoffset null,
 	[UpdatedUserID] int null,
 
-	constraint fk_sec_User_CreatedUserID foreign key ([UserID]) references sec.[User] ([UserID]),
+  constraint fk_sec_User_CreatedUserID foreign key ([UserID]) references sec.[User] ([UserID]),
 	constraint fk_sec_User_UpdatedUserID foreign key ([UserID]) references sec.[User] ([UserID])
 )

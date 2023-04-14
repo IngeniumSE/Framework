@@ -3,6 +3,10 @@
 		"Debug Code Generator: Ingenium.Common": {
 			"commandName": "DebugRoslynComponent",
 			"targetProject": "..\\Ingenium.Common\\Ingenium.Common.csproj"
+		},
+		"Debug Code Generator: Ingenium.Platform.Data": {
+			"commandName": "DebugRoslynComponent",
+			"targetProject": "..\\platform\\Ingenium.Platform.Data\\Ingenium.Platform.Data.csproj"
 		}
 	}
 }

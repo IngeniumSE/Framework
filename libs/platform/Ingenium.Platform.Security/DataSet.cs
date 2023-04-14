@@ -1,6 +1,4 @@
-﻿using Ingenium.CodeGeneration;
-
-namespace Ingenium.Platform.Security;
+﻿namespace Ingenium.Platform.Security;
 
 /// <summary>
 /// Represents a dataset ID.

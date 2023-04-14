@@ -6,8 +6,6 @@ namespace Ingenium.CodeGeneration
 {
 	using System;
 
-	using Ingenium.CodeGeneration;
-
 	using Xunit;
 
 	/// <summary>

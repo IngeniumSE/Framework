@@ -15,16 +15,12 @@
     <TargetFrameworkProfile />
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="sec" />
-    <Folder Include="sec\Tables" />
     <Folder Include="sub" />
     <Folder Include="sub\Tables" />
     <Folder Include="fic" />
     <Folder Include="fic\Tables" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="sec\Tables\Role.sql" />
-    <Build Include="sec\Tables\User.sql" />
     <Build Include="sub\Tables\Subscription.sql" />
     <Build Include="sub\Tables\Subscriber.sql" />
     <Build Include="fic\Tables\Persona.sql" />
@@ -32,13 +28,20 @@
     <Build Include="fic\Tables\Segment.sql" />
     <Build Include="fic\fic.sql" />
     <Build Include="sub\sub.sql" />
-    <Build Include="sec\sec.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Deploy.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Fictionist.SqlServer.publish.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Ingenium.Platform.Securiry.SqlServer\Ingenium.Platform.Securiry.SqlServer.sqlproj">
+      <Name>Ingenium.Platform.Securiry.SqlServer</Name>
+      <Project>{abbd1320-6fc6-4052-a201-b5a6cff34943}</Project>
+      <Private>True</Private>
+      <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="../Directory.Build.targets" />
 </Project>

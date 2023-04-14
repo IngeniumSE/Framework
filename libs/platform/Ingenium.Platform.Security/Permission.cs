@@ -1,12 +1,19 @@
-﻿using Ingenium.CodeGeneration;
-
-namespace Ingenium.Platform.Security;
+﻿namespace Ingenium.Platform.Security;
 
 /// <summary>
 /// Represents a permission ID.
 /// </summary>
 [GenerateId(typeof(string), caseInsensitive: true)]
-public partial struct PermissionId { }
+public partial struct PermissionId
+{
+	/// <summary>
+	/// Creates a set of permissions
+	/// </summary>
+	/// <param name="perms">The permissions.</param>
+	/// <returns>The set of permissions.</returns>
+	public static PermissionId[] Set(params PermissionId[] perms)
+		=> perms is { Length: > 0 } ? perms : Array.Empty<PermissionId>();
+}
 
 /// <summary>
 /// Represents a permission.
@@ -17,4 +24,13 @@ public partial struct PermissionId { }
 public record Permission(
 	PermissionId Id,
 	string Name,
-	string? Description = default);
+	string? Description = default)
+{
+	/// <summary>
+	/// Creates a set of permissions.
+	/// </summary>
+	/// <param name="perms">The permissions.</param>
+	/// <returns>The set of permissions.</returns>
+	public static Permission[] Set(params Permission[] perms)
+		=> perms is { Length: > 0 } ? perms : Array.Empty<Permission>();
+}
