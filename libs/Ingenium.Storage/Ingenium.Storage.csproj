@@ -9,6 +9,7 @@
     <ProjectReference Include="..\Ingenium.Common\Ingenium.Common.csproj" />
     <ProjectReference Include="..\Ingenium.DependencyInjection\Ingenium.DependencyInjection.csproj" />
     <ProjectReference Include="..\Ingenium.Modules\Ingenium.Modules.csproj" />
+    <ProjectReference Include="..\Ingenium.Tenants\Ingenium.Tenants.csproj" />
   </ItemGroup>
 
 	<ItemGroup>

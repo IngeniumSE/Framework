@@ -11,5 +11,8 @@ public static class SecurityPermissions
 
 
 	public static readonly PermissionConvention UserManagement = new(new("security.users"), "Security: Users", "Allows management of users", Set(EditUsers.Id, DeleteUsers.Id, ReadUsers.Id));
+	public static readonly PermissionConvention UserReadOnly = new(new("security.users:read-only"), "Security: Read-only Users", "Allows reading of users", Set(ReadUsers.Id));
+
+	public static readonly DataSet Users = new(new("security.users"), "Security: Users", "The users dataset");
 	#endregion
 }

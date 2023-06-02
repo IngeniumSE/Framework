@@ -7,6 +7,7 @@
 	[IsDeleted] bit not null default 0,
 	[IsHidden] bit not null default 0,
 	[IsLocked] bit not null default 0,
+
 	-- Standard audit
 	[Created] datetimeoffset not null default sysdatetimeoffset(),
 	[CreatedUserID] int not null,

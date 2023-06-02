@@ -1,5 +1,5 @@
 ﻿using Ingenium.Platform.Data;
-using Ingenium.Platform.Security.Users;
+using Ingenium.Platform.Security;
 
 using Microsoft.AspNetCore.Mvc;
 

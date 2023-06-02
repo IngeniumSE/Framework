@@ -1,6 +1,4 @@
-﻿using Ingenium.Platform.Security.Users;
-
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Ingenium.Platform.Security;
 
@@ -13,8 +11,13 @@ public partial class SecurityDbContext : DbContext
 
 	public DbSet<User> Users { get; set; } = default!;
 
+	public DbSet<Role> Roles { get; set; } = default!;
+
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
-		new UserEntityTypeConfiguration().Configure(modelBuilder.Entity<User>());
+		Ensure.IsNotNull(modelBuilder, nameof(modelBuilder));
+
+		modelBuilder.ApplyConfiguration<User, UserEntityTypeConfiguration>();
+		modelBuilder.ApplyConfiguration<Role, RoleEntityTypeConfiguration>();
 	}
 }

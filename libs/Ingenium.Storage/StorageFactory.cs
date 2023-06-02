@@ -1,4 +1,6 @@
-﻿namespace Ingenium.Storage;
+﻿using Ingenium.Tenants;
+
+namespace Ingenium.Storage;
 
 /// <summary>
 /// Defines the required contract for implementing a storage factory.
@@ -9,8 +11,9 @@ public interface IStorageFactory
 	/// Creates the storage instance for storing files.
 	/// </summary>
 	/// <param name="profileId">The storage profile ID.</param>
+	/// <param name="tenantId">The tenant ID.</param>
 	/// <returns>The storage instance.</returns>
-	IStorage CreateStorage(StorageProfileId profileId = default);
+	IStorage CreateStorage(StorageProfileId profileId = default, TenantId tenantId = default);
 }
 
 /// <summary>
@@ -33,9 +36,9 @@ public class StorageFactory : IStorageFactory
 	}
 
 	/// <inheritdoc />
-	public IStorage CreateStorage(StorageProfileId profileId)
+	public IStorage CreateStorage(StorageProfileId profileId, TenantId tenantId)
 	{
-		(profileId, var options) = GetStorageProfileOptions(profileId);
+		(profileId, var options) = GetStorageProfileOptions(profileId, tenantId);
 		if (options is null)
 		{
 			throw new ArgumentException($"Unable to resolve storage profile '{profileId}'");
@@ -47,7 +50,7 @@ public class StorageFactory : IStorageFactory
 		return new Storage(provider, profileId);
 	}
 
-	(StorageProfileId, StorageProfileOptions?) GetStorageProfileOptions(StorageProfileId profileId)
+	(StorageProfileId, StorageProfileOptions?) GetStorageProfileOptions(StorageProfileId profileId, TenantId tenantId)
 	{ 
 		if (!profileId.HasValue && _storageOptions.DefaultProfileId is { Length: >0 })
 		{
@@ -64,7 +67,7 @@ public class StorageFactory : IStorageFactory
 		{
 			foreach (var profileProvider in _providerProfiles)
 			{
-				if (profileProvider.TryGetStorageProfileOptions(profileId, _storageOptions, out options))
+				if (profileProvider.TryGetStorageProfileOptions(profileId, tenantId, _storageOptions, out options))
 				{
 					return (profileId, options!);
 				}

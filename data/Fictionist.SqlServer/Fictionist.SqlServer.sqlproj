@@ -36,8 +36,8 @@
     <None Include="Fictionist.SqlServer.publish.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Ingenium.Platform.Securiry.SqlServer\Ingenium.Platform.Securiry.SqlServer.sqlproj">
-      <Name>Ingenium.Platform.Securiry.SqlServer</Name>
+    <ProjectReference Include="..\Ingenium.Platform.Securiry.SqlServer\Ingenium.Platform.Security.SqlServer.sqlproj">
+      <Name>Ingenium.Platform.Security.SqlServer</Name>
       <Project>{abbd1320-6fc6-4052-a201-b5a6cff34943}</Project>
       <Private>True</Private>
       <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>

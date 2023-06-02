@@ -15,7 +15,7 @@ public class FileSystemStorageProvider : StorageProvider
 
 		var options = OptionsProvider
 			.GetStorageProfileOptions<FileSystemStorageProfileOptions, FileSystemStorageProfileOptionsValidator>(
-				request.ProfileId)!;
+				request.ProfileId, request.TenantId)!;
 
 		string rootPath = options.RootPath;
 		if (!Path.IsPathRooted(rootPath))
@@ -38,14 +38,11 @@ public class FileSystemStorageProvider : StorageProvider
 		};
 
 		using var file = new FileStream(fullPath, fileMode, FileAccess.Write, FileShare.None);
-		using (request.Source)
-		{
-			// Reset the stream position.
-			request.Source.Position = 0;
+		// Reset the stream position.
+		request.Source.Position = 0;
 
-			await request.Source.CopyToAsync(file);
-			await file.FlushAsync();
-		}
+		await request.Source.CopyToAsync(file);
+		await file.FlushAsync();
 
 		return new Uri(fullPath);
 	}

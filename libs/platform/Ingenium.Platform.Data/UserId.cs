@@ -1,4 +1,4 @@
-﻿namespace Ingenium.Platform.Data;
+﻿namespace Ingenium.Platform.Security;
 
 using static GenerateIdFeatures;
 

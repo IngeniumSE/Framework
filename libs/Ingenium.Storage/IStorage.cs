@@ -1,4 +1,8 @@
-﻿namespace Ingenium.Storage;
+﻿using System.Diagnostics;
+
+using Ingenium.Tenants;
+
+namespace Ingenium.Storage;
 
 /// <summary>
 /// Defines the required contract for implementing storage.
@@ -12,17 +16,21 @@ public interface IStorage
 	/// <param name="source">The source file content.</param>
 	/// <param name="conflictAction">Defines the behaviour to take when an existing file already exists at the given path.</param>
 	/// <param name="cancellationToken">The cancellation token.</param>
+	/// 
+	/// 
 	/// <returns>The URI of the newly stored file.</returns>
 	ValueTask<Uri> PutAsync(
 		string relativePath,
 		Stream source,
 		StoreConflictAction conflictAction = StoreConflictAction.Throw,
+		TenantId tenantId = default,
 		CancellationToken cancellationToken = default);
 }
 
 /// <summary>
 /// Provides
 /// </summary>
+[DebuggerDisplay("{ToDebuggerString(),nq}")]
 public class Storage : IStorage
 {
 	readonly IStorageProvider _provider;
@@ -39,15 +47,19 @@ public class Storage : IStorage
 		string relativePath, 
 		Stream source,
 		StoreConflictAction conflictAction = StoreConflictAction.Throw,
+		TenantId tenantId = default,
 		CancellationToken cancellationToken = default)
 	{
 		Ensure.IsNotNullOrEmpty(relativePath, nameof(relativePath));
 		Ensure.IsNotNull(source, nameof(source));
 
-		var request = new StoreRequest(_profileId, relativePath, source, conflictAction);
+		var request = new StoreRequest(_profileId, tenantId, relativePath, source, conflictAction);
 
 		return await _provider.StoreAsync(request, cancellationToken);
 	}
+
+	string ToDebuggerString()
+		=> $"Storage Provider: {_profileId.Value} ({_provider.GetType().Name})";
 }
 
 /// <summary>

@@ -2,6 +2,8 @@
 
 using FluentValidation;
 
+using Ingenium.Tenants;
+
 using Microsoft.Extensions.Configuration;
 
 namespace Ingenium.Storage;
@@ -17,8 +19,9 @@ public interface IStorageOptionsProvider
 	/// <typeparam name="TOptions">The storage profile options.</typeparam>
 	/// <typeparam name="TValidator">The validator.</typeparam>
 	/// <param name="profileId">The storage profile ID.</param>
+	/// <param name="tenantId">The tenant ID.</param>
 	/// <returns>The options.</returns>
-	TOptions? GetStorageProfileOptions<TOptions, TValidator>(StorageProfileId profileId)
+	TOptions? GetStorageProfileOptions<TOptions, TValidator>(StorageProfileId profileId, TenantId tenantId)
 		where TOptions : StorageProfileOptions, new()
 		where TValidator : IValidator<TOptions>, new();
 }
@@ -31,8 +34,8 @@ public class StorageOptionsProvider : IStorageOptionsProvider
 	readonly IConfiguration _configuration;
 	readonly IEnumerable<IStorageProfileProvider> _profileProviders;
 	readonly StorageOptions _storageOptions;
-	readonly ConcurrentDictionary<StorageProfileId, StorageProfileOptions?> _profiles
-		= new ConcurrentDictionary<StorageProfileId, StorageProfileOptions?>(StorageProfileId.Comparer);
+	readonly ConcurrentDictionary<TenantScopedId<StorageProfileId>, StorageProfileOptions?> _profiles
+		= new ConcurrentDictionary<TenantScopedId<StorageProfileId>, StorageProfileOptions?>(TenantScopedId<StorageProfileId>.Comparer);
 
 	public StorageOptionsProvider(
 		IConfiguration configuration, 
@@ -45,23 +48,26 @@ public class StorageOptionsProvider : IStorageOptionsProvider
 	}
 
 	/// <inheritdoc />
-	public TOptions? GetStorageProfileOptions<TOptions, TValidator>(StorageProfileId profileId)
+	public TOptions? GetStorageProfileOptions<TOptions, TValidator>(StorageProfileId profileId, TenantId tenantId)
 		where TOptions : StorageProfileOptions, new()
 		where TValidator : IValidator<TOptions>, new()
 	{
-		TOptions? GetStorageProfileOptionsCore()
+		TOptions? GetStorageProfileOptionsCore(TenantId? tenantId = default)
 		{
 			string key = $"{StorageOptions.ProfilesConfigurationSectionKey}:{profileId.Value}";
+			if (tenantId.HasValue)
+			{
+				key = $"{key}:Tenants:{tenantId.Value}";
+			}
 			var section = _configuration.GetSection(key);
 
 			TOptions? options = default;
-			var validator = new TValidator();
 			if (!section.Exists())
 			{
 				// Try and resolve options from profile providers.
 				foreach (var provider in _profileProviders)
 				{
-					if (provider.TryGetStorageProfileOptions(profileId, _storageOptions, out var resolved))
+					if (provider.TryGetStorageProfileOptions(profileId, tenantId.GetValueOrDefault(TenantId.Empty), _storageOptions, out var resolved))
 					{
 						options = resolved as TOptions;
 						break;
@@ -73,14 +79,27 @@ public class StorageOptionsProvider : IStorageOptionsProvider
 				section.Bind(options);
 			}
 
-			validator.ValidateAndThrow(options);
-
 			return options;
 		}
 
+		var validator = new TValidator();
+
+		var optionsId = new TenantScopedId<StorageProfileId>(TenantId.Empty, profileId);
+
 		var options = _profiles.GetOrAdd(
-			profileId,
+			optionsId,
 			p => GetStorageProfileOptionsCore()) as TOptions;
+
+		if (!tenantId.Equals(TenantId.Empty) && !tenantId.Equals(TenantId.Default))
+		{
+			var tenantOptionsId = new TenantScopedId<StorageProfileId>(tenantId, profileId);
+			var tenantOptions = _profiles.GetOrAdd(
+				tenantOptionsId,
+				p => GetStorageProfileOptionsCore(tenantId)
+			);
+		}
+
+		validator.ValidateAndThrow(options);
 
 		return options;
 	}

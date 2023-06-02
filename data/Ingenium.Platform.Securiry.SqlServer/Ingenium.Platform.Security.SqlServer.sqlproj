@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="../Directory.Build.props" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <Name>Ingenium.Platform.Security.SqlServer</Name>
+    <ProjectGuid>{abbd1320-6fc6-4052-a201-b5a6cff34943}</ProjectGuid>
+    <RootNamespace>Ingenium.Platform.Securiry.SqlServer</RootNamespace>
+    <AssemblyName>Ingenium.Platform.Securiry.SqlServer</AssemblyName>
+    <DefaultSchema>sec</DefaultSchema>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Schemas" />
+    <Folder Include="Tables" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Schemas\sec.sql" />
+    <Build Include="Tables\User.sql" />
+    <Build Include="Tables\Role.sql" />
+  </ItemGroup>
+  <Import Project="../Directory.Build.targets" />
+</Project>

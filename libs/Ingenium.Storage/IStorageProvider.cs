@@ -1,4 +1,6 @@
-﻿namespace Ingenium.Storage;
+﻿using Ingenium.Tenants;
+
+namespace Ingenium.Storage;
 
 /// <summary>
 /// Defines the required contract for implementing a storage provider.
@@ -39,11 +41,13 @@ public abstract class StorageProvider : IStorageProvider
 /// Represents a request to store a file.
 /// </summary>
 /// <param name="ProfileId">The storage profile ID.</param>
+/// <param name="TenantId">The tenant ID.</param>
 /// <param name="RelativePath">The relative path.</param>
 /// <param name="Source">The source stream.</param>
 /// <param name="ConflictAction">The conflict action.</param>
 public record StoreRequest(
 	StorageProfileId ProfileId,
+	TenantId TenantId,
 	string RelativePath,
 	Stream Source,
 	StoreConflictAction ConflictAction);

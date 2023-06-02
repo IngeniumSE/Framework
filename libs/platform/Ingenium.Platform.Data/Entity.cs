@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
+using Ingenium.Platform.Security;
+
 namespace Ingenium.Platform.Data;
 
 /// <summary>

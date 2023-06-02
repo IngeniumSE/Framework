@@ -2,7 +2,6 @@
 using Ingenium.DependencyInjection;
 using Ingenium.Modules;
 using Ingenium.Platform.Data;
-using Ingenium.Platform.Security.Users;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,5 +31,6 @@ public class PlatformSecurityModule : Module, IServicesBuilder
 		});
 
 		services.AddEntityReader<IUserReader, UserReader, User, UserId>();
+		services.AddEntityReader<IRoleReader, RoleReader, Role, RoleId>();
 	}
 }
